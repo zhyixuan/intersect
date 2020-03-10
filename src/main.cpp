@@ -5,7 +5,14 @@
 #include <unordered_set>
 using namespace std;
 
-const double EPS = 1e15;
+const double EPS = 1e-15;
+
+bool double_equal(double a, double b) {
+	if (fabs(a - b) < EPS) {
+		return true;
+	}
+	return false;
+}
 
 class Point
 {
@@ -14,14 +21,6 @@ public:
 	Point(double x0, double y0);
 	double x;
 	double y;
-	bool operator==(const Point& p1) const {
-		if ((this->x == p1.x) && (this->y == p1.y)) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 };
 
 Point::Point() {
@@ -50,7 +49,7 @@ class Equal_point {
 public:
 	bool operator()(const Point& p1, const Point& p2) const
 	{
-		return ((p1.x == p2.x) && (p1.y == p2.y));
+		return (double_equal(p1.x,p2.x) && double_equal(p1.y,p2.y));
 	}
 };
 
